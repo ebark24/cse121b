@@ -17,7 +17,7 @@ const displayClimbs = (climbingList) => {
 
 /* async getTemples Function using fetch()*/
 const getClimbs = async () => {
-    const response = await fetch("https://byui-cse.github.io/cse121b-ww-course/resources/temples.json");
+    const response = await fetch("https://ebark24.github.io/cse121b/climbData.html");
     const data = await response.json();
     climbingList = data;
     displayClimbs();
