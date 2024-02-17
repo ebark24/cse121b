@@ -4,7 +4,7 @@
 
 let myProfile = {
     name: "Eli Barker",
-    photo: "images/IMG_0695.jpg",
+    photo: "https:mountainproject.com/assets/photos/climb/106597315_medium_1494123686.jpg?cache=1701316036",
     favoriteFoods: ["Pasta", "Pizza", "Chicken", "Tacos"],
     hobbies: ["Rock Climbing", "Swimming", "Hiking", "Watching Movies"],
     placesLived: []
