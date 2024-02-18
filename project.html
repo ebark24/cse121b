@@ -28,13 +28,33 @@
     <h1>Final Project</h1>
     <h2>Road to Rocks</h2>
 
+    
+
     <select id="filtered" title="Choose a data filter.">
       <option value="" disabled selected>Type of climb</option>
-      <option value="Sport Climbing">Sport Climbing</option>
+      <option value="sport Climbing">Sport Climbing</option>
       <option value="Bouldering">Bouldering</option>
       <option value="Trad Climbing">Trad Climbing</option>
       <option value="all climbs">All climbs</option>
     </select>
+
+    <select id="sorted" title="Sort climbs">
+      <option value="" disabled selected>Sort climbs</option>
+      <option value="Difficulty">Sort by Difficulty</option>
+      <option value="Distance">Sort by Distance</option>
+    </select>
+
+    <div>
+      <label for="distance">Distance (MI):</label>
+      <input type="text" id="distance" name="distance">
+    </div>
+    <div>
+      <input type="button" id="timeCalc" value="Calculate time to location" style="width: 400px;">
+    </div>
+    <div>
+        <label for="sum">Estimated travel to time</label>
+        <input type="text" id="timeToTravel" name="timeToTravel" disabled>
+    </div>
 
     <div id="climbing locations">
     </div>

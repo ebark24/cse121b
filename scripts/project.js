@@ -1,58 +1,88 @@
-const climbingEmelemt = document.getElementById("climbing locations");
+const climbingElement = document.getElementById("climbing locations");
 let climbingList = [];
 
 const displayClimbs = (climbingList) => {
     climbingList.forEach(climb => {
         let article = document.createElement("article");
         let climbName = document.createElement("h3");
+        let climbDifficulty = document.createElement("p");
+        climbDifficulty.textContent = `Difficulty: ${climb.difficulty}`;
+        let climbDistance = document.createElement("p");
+        climbDistance.textContent = `Distance (MI): ${climb.distance}`;
         climbName.textContent = climb.climbName;
+        let climbLocation = document.createElement("p");
+        climbLocation.textContent = `Location: ${climb.location}`;
+        let mountain = document.createElement("p");
+        mountain.textContent = `Mountain: ${climb.mountain}`;
         let imageUrl = document.createElement("img");
         imageUrl.setAttribute('src', climb.imageUrl);
-        imageUrl.setAttribute('alt', temple.location);
+        imageUrl.setAttribute('alt', climb.location);
         article.appendChild(climbName);
+        article.appendChild(climbLocation);
+        article.appendChild(mountain);
+        article.appendChild(climbDifficulty);
+        article.appendChild(climbDistance);
         article.appendChild(imageUrl);
-        climbingEmelemt.appendChild(article);
+        climbingElement.appendChild(article);
     });
 };
 
-/* async getTemples Function using fetch()*/
 const getClimbs = async () => {
-    const response = await fetch("https://ebark24.github.io/cse121b/climbData.html");
+    const response = await fetch("climbData.json");
     const data = await response.json();
     climbingList = data;
     displayClimbs();
 };
 
-/* reset Function */
 const reset = () => {
-    climbingEmelemt.innerHTML = '';
+    climbingElement.innerHTML = '';
 };
 
-/* filter the types of climbs */
 
 const filterClimbs = (climbs) => {
-    reset()
-    let filter = document.querySelector("#filtered").value
+    reset();
+    let filter = document.querySelector("#filtered").value.toLowerCase();
+    let sort = document.querySelector("#sorted").value.toLowerCase();
+    let filteredClimbs;
     switch (filter) {
-        case "Sport Climbing":
-            let sportClimbs = climbs.filter(climb => climb.type.toLowerCase().includes("Sport Climb"));
-            displayTemples(sportClimbs); 
+        case "bouldering":
+            filteredClimbs = climbs.filter(climb => climb.type.toLowerCase() === "bouldering");
             break;
-        case "Bouldering":
-            let BoulderingClimbs = climbs.filter(climb => climb.type.toLowerCase().includes("Bouldering"));
-            displayTemples(BoulderingClimbs); 
+        case "sport climbing":
+            filteredClimbs = climbs.filter(climb => climb.type.toLowerCase() === "sport climb");
             break;
-        case "Trad Climbing":
-            let TradClimbs = climbs.filter(climb => climb.type.toLowerCase().includes("Trad Climb"));
-            displayTemples(TradClimbs); 
+        case "trad climbing":
+            filteredClimbs = climbs.filter(climb => climb.type.toLowerCase() === "trad climb");
             break;
         case "all climbs":
-            displayTemples(climbingList)
+            filteredClimbs = climbs;
+            break;
+        default:
+            filteredClimbs = climbs;
             break;
     }
+    switch (sort){
+        case 'difficulty':
+            filteredClimbs.sort((a, b) => 
+            parseInt(a.difficulty.slice(2)) - parseInt(b.difficulty.slice(2)));
+            break;
+        case 'distance':
+            filteredClimbs.sort((a, b) => a.distance - b.distance);
+            break;
+        default:
+            break;
+
+    }
+    displayClimbs(filteredClimbs);
+};
+
+function calcTime() {
+    let timeToTravel = Math.round((Number(document.querySelector('#distance').value)/45)*60);
+    document.querySelector('#timeToTravel').value = `${timeToTravel} minutes`;
 }
 
-getClimbs();
+getClimbs(climbingList);
 
-/* Event Listener */
 document.querySelector("#filtered").addEventListener("change", () => {filterClimbs(climbingList)})
+document.querySelector("#sorted").addEventListener("change", () => {filterClimbs(climbingList)})
+document.querySelector('#timeCalc').addEventListener('click', calcTime)
