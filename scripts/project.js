@@ -28,7 +28,7 @@ const displayClimbs = (climbingList) => {
 };
 
 const getClimbs = async () => {
-    const response = await fetch("climbData.json");
+    const response = await fetch("https://run.mocky.io/v3/e9fb28b7-e253-4f19-937c-943b8c47bd82");
     const data = await response.json();
     climbingList = data;
     displayClimbs();
